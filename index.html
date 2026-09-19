@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Baby in process!</title>
+<style>
+  :root {
+    --bg-top: #ffd6e8;
+    --bg-bottom: #ffeef5;
+    --bubble-bg: #ffffff;
+    --bubble-text: #5a3d4d;
+    --blob-color: #ffb3d1;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    background: linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    overflow: hidden;
+  }
+
+  .scene {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .bubble {
+    position: relative;
+    max-width: 280px;
+    min-height: 2.5rem;
+    padding: 0.9rem 1.3rem;
+    margin-bottom: 1.2rem;
+    background: var(--bubble-bg);
+    color: var(--bubble-text);
+    border-radius: 20px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .bubble.visible { opacity: 1; }
+
+  .bubble::after {
+    content: "";
+    position: absolute;
+    bottom: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 14px 10px 0 10px;
+    border-style: solid;
+    border-color: var(--bubble-bg) transparent transparent transparent;
+  }
+
+  .mascot-wrap {
+    width: 220px;
+    height: 220px;
+    animation: bob 2.4s ease-in-out infinite;
+  }
+
+  #mascot {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: none;
+  }
+
+  .placeholder-blob {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--blob-color);
+    position: relative;
+    box-shadow: inset -10px -10px 30px rgba(0,0,0,0.06);
+  }
+
+  .placeholder-blob::before,
+  .placeholder-blob::after {
+    content: "";
+    position: absolute;
+    top: 45%;
+    width: 14px;
+    height: 14px;
+    background: #5a3d4d;
+    border-radius: 50%;
+  }
+
+  .placeholder-blob::before { left: 32%; }
+  .placeholder-blob::after { right: 32%; }
+
+  .placeholder-smile {
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    width: 40px;
+    height: 20px;
+    border-bottom: 5px solid #5a3d4d;
+    border-radius: 0 0 50% 50%;
+    transform: translateX(-50%);
+  }
+
+  @keyframes bob {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-14px) rotate(0deg); }
+  }
+
+  footer {
+    color: #a56b85;
+    font-size: 0.8rem;
+  }
+</style>
+</head>
+<body>
+
+  <div class="scene">
+    <div class="bubble" id="bubble"></div>
+    <div class="mascot-wrap">
+      <img id="mascot" src="mascot.png" alt="Ja the mascot"
+           onerror="this.style.display='none'; document.getElementById('placeholder').style.display='block';">
+      <div class="placeholder-blob" id="placeholder" style="display:none;">
+        <div class="placeholder-smile"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>Ja &middot; loop &amp; grow</footer>
+
+<script>
+  // Edit this list to add more lines — Ja will cycle through them.
+  const lines = [
+    "Baby in process!"
+  ];
+
+  const bubble = document.getElementById("bubble");
+  let i = 0;
+
+  function showLine() {
+    bubble.classList.remove("visible");
+    setTimeout(() => {
+      bubble.textContent = lines[i % lines.length];
+      bubble.classList.add("visible");
+      i++;
+    }, 300);
+  }
+
+  showLine();
+  setInterval(showLine, 5000);
+</script>
+
+</body>
+</html>

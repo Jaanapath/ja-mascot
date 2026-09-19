@@ -68,7 +68,7 @@
   .mascot-wrap {
     width: 220px;
     height: 220px;
-    animation: bob 2.4s ease-in-out infinite;
+    animation: bob 4s ease-in-out infinite;
   }
 
   #mascot {
@@ -113,8 +113,10 @@
   }
 
   @keyframes bob {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-14px) rotate(0deg); }
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(-50px, -20px) rotate(-4deg); }
+    50% { transform: translate(0, -34px) rotate(0deg); }
+    75% { transform: translate(50px, -20px) rotate(4deg); }
   }
 
   footer {
